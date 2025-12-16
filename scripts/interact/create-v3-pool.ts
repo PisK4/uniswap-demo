@@ -1,6 +1,8 @@
 import { ethers } from "hardhat";
 import fs from "fs";
 import path from "path";
+import UniswapV3FactoryArtifact from "@uniswap/v3-core/artifacts/contracts/UniswapV3Factory.sol/UniswapV3Factory.json";
+import UniswapV3PoolArtifact from "@uniswap/v3-core/artifacts/contracts/UniswapV3Pool.sol/UniswapV3Pool.json";
 
 async function main() {
     console.log("Creating Uniswap V3 Pool...");
@@ -38,9 +40,10 @@ async function main() {
     console.log("Fee:", fee);
 
     // Get factory contract
-    const factory = await ethers.getContractAt(
-        "@uniswap/v3-core/contracts/UniswapV3Factory.sol:UniswapV3Factory",
-        factoryAddress
+    const factory = new ethers.Contract(
+        factoryAddress,
+        UniswapV3FactoryArtifact.abi,
+        deployer
     );
 
     // Check if pool already exists
@@ -49,9 +52,10 @@ async function main() {
         console.log("\n⚠️  Pool already exists:", existingPool);
 
         // Check if initialized
-        const pool = await ethers.getContractAt(
-            "@uniswap/v3-core/contracts/UniswapV3Pool.sol:UniswapV3Pool",
-            existingPool
+        const pool = new ethers.Contract(
+            existingPool,
+            UniswapV3PoolArtifact.abi,
+            deployer
         );
         const slot0 = await pool.slot0();
         if (slot0.sqrtPriceX96 > 0n) {
@@ -77,9 +81,10 @@ async function main() {
     console.log("Pool address:", poolAddress);
 
     // Initialize pool with 1:1 price
-    const pool = await ethers.getContractAt(
-        "@uniswap/v3-core/contracts/UniswapV3Pool.sol:UniswapV3Pool",
-        poolAddress
+    const pool = new ethers.Contract(
+        poolAddress,
+        UniswapV3PoolArtifact.abi,
+        deployer
     );
 
     await initializePool(pool);

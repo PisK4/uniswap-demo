@@ -1,6 +1,7 @@
 import { ethers } from "hardhat";
 import fs from "fs";
 import path from "path";
+import UniswapV2FactoryArtifact from "@uniswap/v2-core/build/UniswapV2Factory.json";
 
 async function main() {
     console.log("Creating Uniswap V2 Pair...");
@@ -36,9 +37,10 @@ async function main() {
     console.log("Token B:", tokenB);
 
     // Get factory contract
-    const factory = await ethers.getContractAt(
-        "@uniswap/v2-core/contracts/UniswapV2Factory.sol:UniswapV2Factory",
-        factoryAddress
+    const factory = new ethers.Contract(
+        factoryAddress,
+        UniswapV2FactoryArtifact.abi,
+        deployer
     );
 
     // Check if pair already exists
