@@ -10,17 +10,111 @@ const PRIVATE_KEY = process.env.PRIVATE_KEY || "00000000000000000000000000000000
 
 const config = {
     solidity: {
-        version: "0.8.27",
-        settings: {
-            optimizer: {
-                enabled: true,
-                runs: 200
+        compilers: [
+            {
+                version: "0.5.16",
+                settings: {
+                    optimizer: {
+                        enabled: true,
+                        runs: 999999
+                    }
+                }
+            },
+            {
+                version: "0.6.6",
+                settings: {
+                    optimizer: {
+                        enabled: true,
+                        runs: 999999
+                    }
+                }
+            },
+            {
+                version: "0.7.6",
+                settings: {
+                    optimizer: {
+                        enabled: true,
+                        runs: 800
+                    },
+                    metadata: {
+                        bytecodeHash: "none"
+                    }
+                }
+            },
+            {
+                version: "0.8.27",
+                settings: {
+                    optimizer: {
+                        enabled: true,
+                        runs: 200
+                    }
+                }
+            }
+        ],
+        overrides: {
+            "node_modules/@uniswap/v2-core/contracts/**/*.sol": {
+                version: "0.5.16",
+                settings: {
+                    optimizer: {
+                        enabled: true,
+                        runs: 999999
+                    }
+                }
+            },
+            "node_modules/@uniswap/v2-periphery/contracts/**/*.sol": {
+                version: "0.6.6",
+                settings: {
+                    optimizer: {
+                        enabled: true,
+                        runs: 999999
+                    }
+                }
+            },
+            "node_modules/@uniswap/v3-core/contracts/**/*.sol": {
+                version: "0.7.6",
+                settings: {
+                    optimizer: {
+                        enabled: true,
+                        runs: 800
+                    },
+                    metadata: {
+                        bytecodeHash: "none"
+                    }
+                }
+            },
+            "node_modules/@uniswap/v3-periphery/contracts/**/*.sol": {
+                version: "0.7.6",
+                settings: {
+                    optimizer: {
+                        enabled: true,
+                        runs: 800
+                    },
+                    metadata: {
+                        bytecodeHash: "none"
+                    }
+                }
+            },
+            "contracts/shared/WETH9.sol": {
+                version: "0.6.6",
+                settings: {
+                    optimizer: {
+                        enabled: true,
+                        runs: 999999
+                    }
+                }
             }
         }
     },
     networks: {
         hardhat: {
             allowUnlimitedContractSize: true
+        },
+        edgeTestnet: {
+            url: "https://edge-testnet.g.alchemy.com/public",
+            accounts: [PRIVATE_KEY],
+            chainId: 33431,
+            gasPrice: 100000000,
+            timeout: 120000
         },
         baseSepolia: {
             url: process.env.BASE_SEPOLIA_RPC_URL || "",

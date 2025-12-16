@@ -7,7 +7,16 @@
     "clean": "rm -rf ./artifacts ./cache ./coverage ./types ./coverage.json",
     "test": "hardhat test",
     "compile": "pnpm clean && hardhat compile",
-    "deploy:ExampleToken": "hardhat run scripts/ExampleTokenDeploy.ts"
+    "deploy:ExampleToken": "hardhat run scripts/ExampleTokenDeploy.ts",
+    "deploy:weth": "hardhat run scripts/deploy/1-deploy-weth.ts --network edgeTestnet",
+    "deploy:v2-factory": "hardhat run scripts/deploy/2-deploy-v2-factory.ts --network edgeTestnet",
+    "deploy:v2-router": "hardhat run scripts/deploy/3-deploy-v2-router.ts --network edgeTestnet",
+    "deploy:v3-factory": "hardhat run scripts/deploy/4-deploy-v3-factory.ts --network edgeTestnet",
+    "deploy:v3-periphery": "hardhat run scripts/deploy/5-deploy-v3-periphery.ts --network edgeTestnet",
+    "deploy:test-tokens": "hardhat run scripts/deploy/6-deploy-test-tokens.ts --network edgeTestnet",
+    "deploy:all": "hardhat run scripts/deploy/deploy-all.ts --network edgeTestnet",
+    "interact:create-v2-pair": "hardhat run scripts/interact/create-v2-pair.ts --network edgeTestnet",
+    "interact:create-v3-pool": "hardhat run scripts/interact/create-v3-pool.ts --network edgeTestnet"
   },
   "devDependencies": {
     "@nomicfoundation/hardhat-chai-matchers": "^2.0.3",
@@ -35,6 +44,12 @@
     "@openzeppelin/contracts-upgradeable": "^5.0.1",
     "@thundernetworkrad/readline-sync": "^2023.3.13-1",
     "@trivago/prettier-plugin-sort-imports": "^5.2.1",
+    "@uniswap/sdk-core": "^7.10.0",
+    "@uniswap/v2-core": "^1.0.1",
+    "@uniswap/v2-periphery": "1.1.0-beta.0",
+    "@uniswap/v3-core": "^1.0.1",
+    "@uniswap/v3-periphery": "^1.4.4",
+    "@uniswap/v3-sdk": "^3.27.0",
     "dotenv": "^16.0.3",
     "solady": "^0.0.288"
   }
